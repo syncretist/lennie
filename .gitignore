@@ -1,3 +1,4 @@
 .rvmrc
+.idea/
 Gemfile.lock
 config/secure_info.rb
