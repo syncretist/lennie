@@ -7,7 +7,10 @@ module Configuration
     if File.exist? "./config/secure_info.rb"
       require "./config/secure_info"
     else
-      puts "NOTE: To properly run this suite, you must have a local file titled 'secure_info.rb' in the config directory with a hash global 'SECURE_INFO'!"
+      puts "NOTE: To properly run this suite:"
+      puts "  1. you must have a local file titled 'secure_info.rb' in the config directory"
+      puts "  2. it must have a module with a hash global 'SECURE_INFO' and values necessary"
+      puts "  3. you must include the module at the bottom of the same file"
     end
   end
   module Website
@@ -18,8 +21,6 @@ module Configuration
     require 'capybara'
     #require 'capybara/dsl' # may not be explicitly needed if it already allows me to use commands on main object via include below 'Capybara::DSL'
 
-    include Website # find a better way to reference local modules, here i reference this because i need the BASEURL value
-
     Capybara.run_server = false
     Capybara.current_driver = :selenium
     Capybara.app_host = Configuration::Website::BASEURL
@@ -29,12 +30,10 @@ module Configuration
 
     http = Net::HTTP.new(@host, @port)
     http.read_timeout = 500
-
   end
   module Mockdata
     require 'faker'
     I18n.enforce_available_locales = false # takes care of faker warning message
-
   end
   module Datedata
     def now
@@ -49,18 +48,17 @@ module Configuration
 
     # https://github.com/visionmedia/terminal-table
     require 'terminal-table'
-
   end
   module Debugging
     require 'pry' # allows use of binding.pry throughout without explicit reference
   end
   module Benchmarking
-    require 'tach' # https://github.com/geemus/tach
+    require 'tach' # https://github.com/geemus/tach : allows for timing task runs
   end
   module Temptest
-    gem 'minitest' # remove warning and use gem instead of built-in
-    #require 'minitest/autorun' #uncomment when i start writing actual specs and not just browser 'puts' tests
+    gem 'minitest' # to remove warning and use gem instead of built-in
+    #require 'minitest/autorun' #TODO uncomment when i start writing actual specs and not just browser 'puts' tests
 
-    include Capybara::DSL #allows for method calls without prefix
+    include Capybara::DSL #allows for capybara browser driver method calls without prefix (for use in 'interactive mode')
   end
 end

@@ -156,6 +156,16 @@ class Tester
     click_button("#{all('button')[4].text}")
   end
 
+  def legacy_techsupport_login
+    fill_in('Email'   , :with => SECURE_INFO[:legacy_techsupport_email])
+    fill_in('Password', :with => SECURE_INFO[:legacy_techsupport_password])
+    click_button('Login')
+  end
+
+  def legacy_techsupport_logout
+    visit("http://ts.onlineaha.org/index.cfm?view=Logoff")
+  end
+
   def logout
     visit("#{@home_url}users/sign_out")
     visit("#{@home_url}users/sign_out") # second time for become user, then admin
@@ -236,20 +246,41 @@ class Tester
     end
   end
 
-  def compare_sco_records_selector
+  def compare_key_usage
+    if @legacy_course_record[:key_usage_status] == @scidea_course_record[:key_usage_status]
+      if @legacy_course_record[:key_usage_status] == 'available'
+        puts "#{green_check} Keys are available for use in both scidea and legacy OKM."
+      else
+        puts "#{red_x} The keys are not set to available, there must be a problem, see the raw data for details:"
+        puts " => Legacy key usage status: " + "#{@legacy_course_record[:key_usage_status]}".bold
+        puts " => Scidea key usage status: " + "#{@scidea_course_record[:key_usage_status]}".bold
+      end
+    else
+      puts "#{red_x} The keys are not set to the same usage status, there must be a problem, see the raw data for details:"
+      puts " => Legacy key usage status: " + "#{@legacy_course_record[:key_usage_status]}".bold
+      puts " => Scidea key usage status: " + "#{@scidea_course_record[:key_usage_status]}".bold
+    end
+  end
+
+  def compare_sco_records_selector(params)
     marquee_final "Final Sco Record Comparison"
 
     if @scidea_course_record[:non_active] || @legacy_course_record[:non_active]
-      compare_sco_records_unusual
+      compare_sco_records_unusual(params)
     else
       compare_sco_records_standard
     end
 
   end
 
-  def compare_sco_records_unusual
+  def compare_sco_records_unusual(params)
     if @scidea_course_record[:non_active] && @legacy_course_record[:non_active]
       puts "#{green_check} This course is not active in either scidea or legacy, it is a properly unused key."
+      prepare_to_gather_key_usage_scidea(params)
+      logout
+      prepare_to_gather_key_usage_legacy(params)
+      legacy_techsupport_logout
+      compare_key_usage
     else
       puts "#{red_x} This key is not activated properly in both scidea and legacy, there must be a problem, see the raw data for details."
     end
@@ -366,6 +397,21 @@ class Tester
     #@final_counts_scidea[0][:key_counts]          # this will give you key count hash at any index
     #@final_counts_scidea[0][:key_counts][:failed] # this will give you failed in the counts at any index
 
+  end
+
+  def gather_key_usage_legacy(params)
+    popup  = page.driver.browser.window_handles[1]
+
+    page.driver.browser.switch_to.window(popup)
+    sleep 3 # wait for popup to fully load
+    fill_in('key', :with => params[:key_code])
+    click_button('Find')
+    @legacy_course_record[:key_usage_status] = find('#tableReport').all('td')[3].text # "available" if the key can be assigned
+    utility_close_selenium_popup_window
+  end
+
+  def gather_key_usage_scidea
+    @scidea_course_record[:key_usage_status] = all('td')[5].text # "available" if the key can be assigned
   end
 
   def gather_status_legacy_type_selector
@@ -496,8 +542,6 @@ class Tester
     ## be sure the course progress modal has loaded (some of its elements flicker after it loads)
     find('#CourseReportLabel')
     sleep 3 # increase this number (seconds) if intermittent failures continue at the course progress modal
-
-    binding.pry
 
     if all('p')[1].text == "This key has not been activated yet."
       gather_status_scidea_unusual
@@ -632,8 +676,22 @@ class Tester
   end
   
   def prepare_to_gather_key_counts_scidea
-    visit("#{@home_url}keys")
+    visit_okm_route
     gather_key_counts_scidea
+  end
+
+  def prepare_to_gather_key_usage_legacy(params)
+    visit_legacy_techsupport_tool
+    setup_legacy_techsupport_tool_to_open_legacy_okm(params)
+    gather_key_usage_legacy(params)
+  end
+
+  def prepare_to_gather_key_usage_scidea(params)
+    visit_home_url
+    login_type_selector(params)
+    visit_okm_route
+    setup_okm_search_by_key(params[:key_code])
+    gather_key_usage_scidea
   end
 
   def prepare_to_gather_status_legacy(key_code)
@@ -645,21 +703,59 @@ class Tester
     setup_user_modal(key_code)
     gather_status_scidea_type_selector
   end
-  
-  def setup_user_modal(key_code)
+
+  def setup_legacy_techsupport_tool_to_open_legacy_okm(params)
+    legacy_techsupport_login
+    setup_become_admin_in_legacy_okm(params[:admin_email])
+  end
+
+  def setup_become_admin_in_legacy_okm(admin_email)
+    click_link('Links')
+    click_link('Allow logins as AHA user')
+    fill_in('person_email', :with => admin_email)
+    fill_in('days', :with => 1)
+    click_button('Create Access Window')
+    all('td', :text => admin_email )[1].first(:xpath,".//..").choose('deleteID') # select radio button option
+    click_button('Log in to OKM through this window')
+  end
+
+  def setup_okm_search_by_key(key_code)
     fill_in('q', :with => key_code) # use the key for unique record, email may turn up for many courses
     find('#q').native.send_keys(:return) # click enter to submit
-
     ## be sure the page has loaded (some of its elements flicker after it loads)
     find('#key_datatable')
     sleep 3 # increase this number (seconds) if intermittent failures continue at the course progress modal
+  end
+  
+  def setup_user_modal(key_code)
+    setup_okm_search_by_key(key_code)
     modal = find('a.btn')  # be double sure the element has loaded on the page by caching it
-    
     modal.click # assumes there is only one result
+  end
+
+  def utility_close_selenium_popup_window
+    # Find our target window
+    parent = page.driver.browser.window_handles[0]
+    popup  = page.driver.browser.window_handles[1]
+
+    # Close it
+    page.driver.browser.switch_to.window(popup)
+    page.driver.browser.close
+
+    # Have the Selenium driver point to another window
+    page.driver.browser.switch_to.window(parent)
   end
 
   def visit_home_url
     visit(@home_url)
+  end
+
+  def visit_legacy_techsupport_tool
+    visit("http://ts.onlineaha.org")
+  end
+
+  def visit_okm_route
+    visit("#{@home_url}keys")
   end
 
   def visit_oksanas_sco_record_interface(key_code)
@@ -701,7 +797,7 @@ class TestRunner
         # [opt] status from OKM key state
         t.logout
         t.prepare_to_gather_status_legacy(params[:key_code])
-        t.compare_sco_records_selector
+        t.compare_sco_records_selector(params)
       end
     end
     return nil #clean final return

@@ -19,7 +19,7 @@ class TestMeme < Minitest::Test
   end
 
   def test_that_kitty_can_eat
-    #desc("AOP outputs log of what is going on, provides breakpoint, takes screenshots?")
+    #desc("AOP outputs log of what is going on, provides breakpoint, takes screenshots?") | or metaprogramming to make every method with certain name have beginning and end methods automatically
     assert page.has_content? @text
   end
 end

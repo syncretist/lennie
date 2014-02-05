@@ -4,8 +4,13 @@
   ```"Where we goin', George?"```
 
 ## Philosophy
-  http://www.satisfice.com/blog/archives/58
-  * use page objects to have objects that can be asked to do things at a higher level and swapped out when fragile changes occur
+  * Role of the test suite
+    * http://www.satisfice.com/blog/archives/58
+  * Use of page objects to have objects as entities at a higher level that can have thier details swapped out when fragile changes occur
+    * http://www.cheezyworld.com/2011/07/29/introducing-page-object-gem/
+    * http://watirmelon.com/2012/06/04/roll-your-own-page-objects/
+  * http://watirmelon.com/2011/12/03/a-tale-of-three-ruby-automated-testing-apis-redux/
+
 
 ## Installation
 ```git clone <>```
