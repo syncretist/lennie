@@ -1,0 +1,66 @@
+module Configuration
+  module Project
+    # 1. production or test mode when init, use different base urls etc...
+    # 2. template file path/location to load them from
+
+    # Incorporate secure info not checked into git or shared without permission
+    if File.exist? "./config/secure_info.rb"
+      require "./config/secure_info"
+    else
+      puts "NOTE: To properly run this suite, you must have a local file titled 'secure_info.rb' in the config directory with a hash global 'SECURE_INFO'!"
+    end
+  end
+  module Website
+    PROTOCOL = ssl = false ? 'https://' : 'http://'
+    BASEURL  = PROTOCOL + 'beta.onlineaha.org'
+  end
+  module Browserdriver
+    require 'capybara'
+    #require 'capybara/dsl' # may not be explicitly needed if it already allows me to use commands on main object via include below 'Capybara::DSL'
+
+    include Website # find a better way to reference local modules, here i reference this because i need the BASEURL value
+
+    Capybara.run_server = false
+    Capybara.current_driver = :selenium
+    Capybara.app_host = Configuration::Website::BASEURL
+
+    # Setting a longer timeout: http://stackoverflow.com/a/10020243
+    require 'net/http'
+
+    http = Net::HTTP.new(@host, @port)
+    http.read_timeout = 500
+
+  end
+  module Mockdata
+    require 'faker'
+    I18n.enforce_available_locales = false # takes care of faker warning message
+
+  end
+  module Datedata
+    def now
+      Time.now
+    end
+  end
+  module TerminalDesign
+    # http://stackoverflow.com/questions/1489183/colorized-ruby-output
+    # http://stackoverflow.com/questions/1108767/terminal-color-in-ruby
+    # http://colorize.rubyforge.org/files/README_txt.html
+    require 'colorize'
+
+    # https://github.com/visionmedia/terminal-table
+    require 'terminal-table'
+
+  end
+  module Debugging
+    require 'pry' # allows use of binding.pry throughout without explicit reference
+  end
+  module Benchmarking
+    require 'tach' # https://github.com/geemus/tach
+  end
+  module Temptest
+    gem 'minitest' # remove warning and use gem instead of built-in
+    #require 'minitest/autorun' #uncomment when i start writing actual specs and not just browser 'puts' tests
+
+    include Capybara::DSL #allows for method calls without prefix
+  end
+end
