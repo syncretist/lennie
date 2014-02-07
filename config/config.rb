@@ -29,7 +29,7 @@ module Configuration
     require 'net/http'
 
     http = Net::HTTP.new(@host, @port)
-    http.read_timeout = 500
+    http.read_timeout = 700
   end
   module Mockdata
     require 'faker'
