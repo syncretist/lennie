@@ -6,10 +6,13 @@
 ## Philosophy
   * Role of the test suite
     * http://www.satisfice.com/blog/archives/58
+  * Outside In Testing
+    * http://www.youtube.com/watch?v=JDgOuKvRaf4
   * Use of page objects to have objects as entities at a higher level that can have thier details swapped out when fragile changes occur
     * http://www.cheezyworld.com/2011/07/29/introducing-page-object-gem/
     * http://watirmelon.com/2012/06/04/roll-your-own-page-objects/
-  * http://watirmelon.com/2011/12/03/a-tale-of-three-ruby-automated-testing-apis-redux/
+  * Usefulness of different types of webdrivers
+    * http://watirmelon.com/2011/12/03/a-tale-of-three-ruby-automated-testing-apis-redux/
 
 
 ## Installation
@@ -25,22 +28,27 @@ function start-lennie(){
 echo -e "\n"
 echo -e " \e[00;31mlennie\e[00m : QUICK DOC"
 echo -e ""
-echo -e "==== One offs ===="
+echo -e "=================="
+echo -e "==== \e[1;39;49mOne offs\e[0m ===="
+echo -e "=================="
 echo -e ""
-echo -e "== Login as SA =="
+echo -e "== \e[1;39;49mLogin as SA\e[0m =="
 echo -e "Tester.new.standard_login(SECURE_INFO[:sa_email], SECURE_INFO[:sa_password])"
 echo -e ""
-echo -e "==== Tasks ===="
+echo -e "==============="
+echo -e "==== \e[1;39;49mTasks\e[0m ===="
+echo -e "==============="
 echo -e ""
-echo -e "== Key count tests (with standard user login and with become) =="
+echo -e "== \e[1;39;49mKey count tests\e[0m (with standard user login and with become) =="
 echo -e "TestRunner.new.key_count( :home_url => 'http://f.scitent.us/', :admin_email => 'okmtester2@dispostable.com', :admin_password => 'password', :org_id => 12)"
 echo -e "TestRunner.new.key_count( :home_url => 'http://f.scitent.us/', :admin_email => 'pierson.shelby@mayo.edu', :org_id => 981 )"
 echo -e ""
-echo -e "== Sco record tests =="
+echo -e "== \e[1;39;49mSco record tests\e[0m =="
 echo -e "TestRunner.new.sco_record_verification( :home_url => 'http://f.scitent.us/', :admin_email => 'pierson.shelby@mayo.edu', :key_code => '0ED5A98C69A7') # BLS HCP"
 echo -e "TestRunner.new.sco_record_verification( :home_url => 'http://f.scitent.us/', :admin_email => 'pierson.shelby@mayo.edu', :key_code => 'CEC80561D744') # ACLS"
 echo -e ""
 rvm use 1.9.3-p0@integration-suite
+echo -e ""
 pry -r ./lib/startup
 }
 
