@@ -1,8 +1,14 @@
-class ContactPage
+class ContactPage < AbstractPage
 
-  attr_reader :route
+  ################
+  ## ATTRIBUTES ##
+  ################
 
-  def initialize
-    @route = '/users/sign_up'
+  def self.route
+    '/contact_us'
+  end
+
+  def self.name
+    'contact page'
   end
 end

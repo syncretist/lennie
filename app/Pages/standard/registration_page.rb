@@ -1,8 +1,14 @@
-class RegistrationPage
+class RegistrationPage < AbstractPage
 
-  attr_reader :route
+  ################
+  ## ATTRIBUTES ##
+  ################
 
-  def initialize
-    @route = '/users/sign_up'
+  def self.route
+    '/users/sign_up'
+  end
+
+  def self.name
+    'registration page'
   end
 end

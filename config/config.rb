@@ -13,17 +13,13 @@ module Configuration
       puts "  3. you must include the module at the bottom of the same file"
     end
   end
-  module Website
-    PROTOCOL = ssl = false ? 'https://' : 'http://'
-    BASEURL  = PROTOCOL + 'beta.onlineaha.org'
-  end
   module Browserdriver
     require 'capybara'
     #require 'capybara/dsl' # may not be explicitly needed if it already allows me to use commands on main object via include below 'Capybara::DSL'
 
     Capybara.run_server = false
     Capybara.current_driver = :selenium
-    Capybara.app_host = Configuration::Website::BASEURL
+    Capybara.app_host = "http://scitent.us"
 
     # Setting a longer timeout: http://stackoverflow.com/a/10020243
     require 'net/http'
@@ -65,5 +61,16 @@ module Configuration
     require 'minitest/autorun' #TODO uncomment when i start writing actual specs and not just browser 'puts' tests
 
     include Capybara::DSL #allows for capybara browser driver method calls without prefix (for use in 'interactive mode')
+
+    ## SET global values for test suite run
+
+    # Website
+    SESSION_PROTOCOL = 'http://'                          # ['http://', 'https://']
+    SESSION_BASEURL  = SESSION_PROTOCOL + 'f.scitent.us'  # ['f.scitent.us', 'beta.onlineaha.org']
+    SESSION_OKMURL   = ''
+    SESSION_MYONLINEURL = ''
+
+    # Misc
+
   end
 end

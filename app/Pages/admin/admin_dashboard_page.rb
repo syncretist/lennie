@@ -1,8 +1,14 @@
-class AdminDashboardPage
+class AdminDashboardPage < AbstractPage
 
-  attr_reader :route
+  ################
+  ## ATTRIBUTES ##
+  ################
 
-  def initialize
-    @route = '/admin/dashboard'
+  def self.route
+    '/admin/dashboard'
+  end
+
+  def self.name
+    'admin dashboard page'
   end
 end
