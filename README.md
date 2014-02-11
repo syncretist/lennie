@@ -23,6 +23,9 @@
 
 ## Installation
 - ```git clone git@github.com:syncretist/lennie.git```
+- setup files that are environment specific (*in gitignore*)
+  - ```.rvmrc``` : [reccommended setup](http://sirupsen.com/get-started-right-with-rvm/) for proper use of bash scripts below ```rvm --create --rvmrc 1.9.3-p0@integration-suite```
+  - ```config/secure_info.rb``` : sensitive information that cannot be publicly shared, must be setup in each environment (see Eric for structure if necessary)
 - ```bundle install``` *(from root of the project)*
 
 ## Interactive mode and Test mode
