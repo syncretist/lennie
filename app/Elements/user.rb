@@ -1,15 +1,11 @@
-#LOAD IT ALL IN           =>
-Dir["./config.rb"].each {|file| require file }
-
-# could this be a simple struct instead?
-
 class User
 
-  attr_reader :first_name, :last_name
+  attr_reader :first_name, :last_name, :email, :password
 
-  def initialize
-    @first_name = Faker::Name.first_name
-    @last_name  = Faker::Name.last_name
-
+  def initialize( params = {} )
+    @first_name = params[:first_name] || Faker::Name.first_name
+    @last_name  = params[:last_name]  || Faker::Name.last_name
+    @email      = params[:email]      || ''
+    @password   = params[:password]   || ''
   end
 end

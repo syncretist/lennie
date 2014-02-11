@@ -57,7 +57,12 @@ module Configuration
   end
   module Temptest
     gem 'minitest' # to remove warning and use gem instead of built-in
-    #require 'minitest/autorun' #TODO uncomment when i start writing actual specs and not just browser 'puts' tests
+
+    # http://www.rubyinside.com/a-minitestspec-tutorial-elegant-spec-style-testing-that-comes-with-ruby-5354.html
+    # https://github.com/seattlerb/minitest
+    # http://bfts.rubyforge.org/minitest/MiniTest/Spec.html
+    # http://mattsears.com/articles/2011/12/10/minitest-quick-reference
+    require 'minitest/autorun' #TODO uncomment when i start writing actual specs and not just browser 'puts' tests
 
     include Capybara::DSL #allows for capybara browser driver method calls without prefix (for use in 'interactive mode')
   end

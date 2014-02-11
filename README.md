@@ -19,12 +19,15 @@
 ```git clone <>```
 ```bundle install``` *(from root of the project)*
 
-## Interactive mode
+## Interactive mode and Test mode
 
-#### added to `/home/qa-eric/.bash_aliases` for quick startup with ```lennie``` at bash
+#### added to `/home/qa-eric/.bash_aliases` for quick startup menu with ```lennie``` at bash
 
 ```
-function start-lennie(){
+## lennie ##
+############
+
+function interactive-lennie(){
 echo -e "\n"
 echo -e " \e[00;31mlennie\e[00m : QUICK DOC"
 echo -e ""
@@ -49,13 +52,35 @@ echo -e "TestRunner.new.sco_record_verification( :home_url => 'http://f.scitent.
 echo -e ""
 rvm use 1.9.3-p0@integration-suite
 echo -e ""
-pry -r ./lib/startup
+pry -r ./lib/startup_interactive
 }
 
-alias  lennie='cd ~/code/lennie && start-lennie'
+function test-lennie(){
+echo -e ""
+rvm use 1.9.3-p0@integration-suite
+echo -e ""
+ruby -r './lib/startup_tests' app/temptests.rb
+}
+
+function menu-lennie(){
+echo -e "\n"
+echo -e "Please use the following commands to invoke lennie:"
+echo -e ""
+echo -e "\e[1;39;47mlennie-t\e[00m : Run automated test suite."
+echo -e "\e[1;39;47mlennie-i\e[00m : Work within interactive mode."
+echo -e ""
+}
+
+alias  lennie='menu-lennie'
+alias lennie-t='cd ~/code/lennie && test-lennie'
+alias lennie-i='cd ~/code/lennie && interactive-lennie'
 ```
 
-#### To run manually directives for quick startup
+#### To run manually; directives for quick startup
+*NOTE*: Dependency requirement/loading is aggregated in startup scripts found @ /lib
+
+
+- Interactive Mode
 
 ```cd ~/code/lennie/ && pry```
 ```Dir["./config/config.rb", "./app/tempactions.rb"].each {|file| require file }; include Configuration::Temptest```
@@ -66,6 +91,10 @@ alias  lennie='cd ~/code/lennie && start-lennie'
 4. GET INTO TEST SCOPE VIA INTERACTIVE SESSION      => include Configuration::Temptest
 5. LOAD TEMP ACTIONS FILE WITH APP CODE             => Dir["./tempactions.rb"].each {|file| require file }
 6. RUN TEMP TESTS AS NEEDED                         => TestRunner.new.<name of test>(<params>)
+
+- Test Mode
+
+*TODO*
 
 ## Resources
 
