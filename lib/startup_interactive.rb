@@ -6,4 +6,4 @@ Dir["./config/config.rb", "./app/tempactions.rb"].each {|file| require file }
 
 include Configuration::Datedata
 include Configuration::Mockdata
-include Configuration::Temptest
+include Configuration::Browserdriver

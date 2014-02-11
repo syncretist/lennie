@@ -16,3 +16,6 @@ gem 'terminal-table'
 
 # Benchmarking
 gem 'tach'
+
+# Debugging
+gem 'pry-debugger'

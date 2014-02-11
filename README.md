@@ -88,14 +88,13 @@ alias lennie-i='cd ~/code/lennie && interactive-lennie'
 **Interactive Mode**
 
 ```cd ~/code/lennie/ && pry```
-```Dir["./config/config.rb", "./app/tempactions.rb"].each {|file| require file }; include Configuration::Temptest```
+```Dir["./config/config.rb", "./app/tempactions.rb"].each {|file| require file }```
 
 1. GO TO DIR FOR RVM SWITCH                         => cd ~/code/lennie/
 2. START PRY                                        => pry
 3. LOAD IN CONFIG MODULES                           => Dir["./config.rb"].each {|file| require file }
-4. GET INTO TEST SCOPE VIA INTERACTIVE SESSION      => include Configuration::Temptest
-5. LOAD TEMP ACTIONS FILE WITH APP CODE             => Dir["./tempactions.rb"].each {|file| require file }
-6. RUN TEMP TESTS AS NEEDED                         => TestRunner.new.<name of test>(<params>)
+4. LOAD TEMP ACTIONS FILE WITH APP CODE             => Dir["./tempactions.rb"].each {|file| require file }
+5. RUN TEMP ACTIONS AS NEEDED                         => TestRunner.new.<name of test>(<params>)
 
 ** Test Mode **
 

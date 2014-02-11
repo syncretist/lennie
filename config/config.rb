@@ -26,6 +26,8 @@ module Configuration
 
     http = Net::HTTP.new(@host, @port)
     http.read_timeout = 700
+
+    include Capybara::DSL #allows for capybara browser driver method calls without prefix
   end
   module Mockdata
     require 'faker'
@@ -46,21 +48,19 @@ module Configuration
     require 'terminal-table'
   end
   module Debugging
-    require 'pry' # allows use of binding.pry throughout without explicit reference
+    require 'pry-debugger' # allows use of binding.pry throughout without explicit reference
   end
   module Benchmarking
     require 'tach' # https://github.com/geemus/tach : allows for timing task runs
   end
-  module Temptest
+  module Testrunner
     gem 'minitest' # to remove warning and use gem instead of built-in
 
     # http://www.rubyinside.com/a-minitestspec-tutorial-elegant-spec-style-testing-that-comes-with-ruby-5354.html
     # https://github.com/seattlerb/minitest
     # http://bfts.rubyforge.org/minitest/MiniTest/Spec.html
     # http://mattsears.com/articles/2011/12/10/minitest-quick-reference
-    require 'minitest/autorun' #TODO uncomment when i start writing actual specs and not just browser 'puts' tests
-
-    include Capybara::DSL #allows for capybara browser driver method calls without prefix (for use in 'interactive mode')
+    require 'minitest/autorun'
 
     ## SET global values for test suite run
 
