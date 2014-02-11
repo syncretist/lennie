@@ -85,13 +85,13 @@ alias lennie-t='cd ~/code/lennie && test-lennie'
 alias lennie-i='cd ~/code/lennie && interactive-lennie'
 ```
 
-- to run manually everything manually, here are some directives for quick startup
+- to run everything manually, here are some directives for quick startup
 *NOTE*: Dependency requirement/loading is aggregated in startup scripts found @ /lib
 
 **Interactive Mode**
 
-```cd ~/code/lennie/ && pry```
-```Dir["./config/config.rb", "./app/tempactions.rb"].each {|file| require file }```
+- ```cd ~/code/lennie/ && pry```
+- ```Dir["./config/config.rb", "./app/tempactions.rb"].each {|file| require file }```
 
 1. GO TO DIR FOR RVM SWITCH                         => cd ~/code/lennie/
 2. START PRY                                        => pry
@@ -99,7 +99,7 @@ alias lennie-i='cd ~/code/lennie && interactive-lennie'
 4. LOAD TEMP ACTIONS FILE WITH APP CODE             => Dir["./tempactions.rb"].each {|file| require file }
 5. RUN TEMP ACTIONS AS NEEDED                         => TestRunner.new.<name of test>(<params>)
 
-** Test Mode **
+**Test Mode**
 
 *TODO*
 
@@ -114,6 +114,7 @@ alias lennie-i='cd ~/code/lennie && interactive-lennie'
 
 ## To Do
 
+- gitignore and seperate project specific files and configs, have each suite nameable when cloning to project, then add specific, include templates for what files 'should' look like
 - seperate nested config modules in config directory (base site settings, location of template files..)
 - eventually abstract to have all specific 'data' about sites in template files as hashes or yaml... then single model that initializes with current data
 - scraper with nokogiri etc to open page and pull all info and get into form
