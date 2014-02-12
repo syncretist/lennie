@@ -3,14 +3,15 @@ module Configuration
     # 1. production or test mode when init, use different base urls etc...
     # 2. template file path/location to load them from
 
-    # Incorporate secure info not checked into git or shared without permission
-    if File.exist? "./config/secure_info.rb"
-      require "./config/secure_info"
+    @project_maintainer_email = 'eglassman@scitent.com'
+
+    if File.exist? "./app/Elements/element_configuration_manager.rb"
+      require "./app/Elements/element_configuration_manager.rb"
     else
       puts "NOTE: To properly run this suite:"
-      puts "  1. you must have a local file titled 'secure_info.rb' in the config directory"
-      puts "  2. it must have a module with a hash global 'SECURE_INFO' and values necessary"
-      puts "  3. you must include the module at the bottom of the same file"
+      puts " * You must have access to the private yml files containing sensitive data @ ./app/Elements/<project>/element_configuration/**"
+      puts ""
+      puts "Send an email to #{@project_maintainter_email} with any questions."
     end
   end
   module Browserdriver
