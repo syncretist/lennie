@@ -18,7 +18,7 @@
 Dir["./config/config.rb"].each {|file| require file }
 
 # pulls in dependent classes
-Dir["./app/Elements/browser.rb", "./app/Elements/user.rb", "./app/Pages/**/**.rb"].each { |file| require file }
+Dir["./app/Elements/browser.rb", "./app/Elements/Onlineaha/user.rb", "./app/Pages/**.rb", "./app/Pages/Onlineaha/**/**.rb"].each { |file| require file }
 
 # pulls in and loads dependent modules
 Dir[""].each do |file|
