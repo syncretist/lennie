@@ -112,6 +112,17 @@ alias lennie-i='cd ~/code/lennie && interactive-lennie'
 1. GO TO DIR FOR RVM SWITCH                                                      => ```cd ~/code/lennie/```
 2. LOAD IN ALL CONFIGURATION AND HAND OFF TO TEST MANAGER TO BEGIN               => ```ruby -r './lib/startup_tests' app/Tests/test_manager.rb```
 
+## Key Concepts
+
+- Run in *test* mode to verify integrity or in *interactive* mode to experiment with capybara elements and context directly through pry.
+- Page Object, Page Element, Element Inventory
+
+## Vernacular
+
+* PAGE OBJECTS: aggregated state and behavior for each page in the application
+* PAGE ELEMENTS: 'mixins' to pages that have shared elements and functionality
+* ELEMENTS: aspects of the application to be modeled for reuse (ex. User, SCORM package, Course, Browser)
+
 ## Resources
 
 #### Gathered Related Links
@@ -119,7 +130,6 @@ alias lennie-i='cd ~/code/lennie && interactive-lennie'
 
 #### Capybara API References
 - https://gist.github.com/egman24/ab9088b47c157d5d8253
-
 
 ## To Do
 
@@ -129,8 +139,3 @@ alias lennie-i='cd ~/code/lennie && interactive-lennie'
 - scraper with nokogiri etc to open page and pull all info and get into form
 - AspectOrientedProgramming for screenshots etc? special method that includes screenshots but has hook in the middle to run other code
 - credentials etc to get to hidden pages: roles and contexts
-
-## Vernacular
-
-* PAGE OBJECTS: aggregated state and behavior for each page in the application
-* PAGE ELEMENTS: mixins to pages that has shared elements and functionality
