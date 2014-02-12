@@ -6,6 +6,7 @@
 ## Philosophy
   * Role of the test suite within a software development/testing effort
     * http://www.satisfice.com/blog/archives/58
+    * http://www.satisfice.com/articles/agileauto-paper.pdf
   * Outside In Testing
     * http://www.youtube.com/watch?v=JDgOuKvRaf4
   * Use of page objects to have objects as entities at a higher level that can have thier details swapped out when fragile changes occur
