@@ -6,7 +6,7 @@ class AbstractPage
   ## ATTRIBUTES ##
   ################
 
-  def self.route
+  def self.route( id=nil )
     raise '::MUST OVERRIDE ABSTRACT PAGE CLASS FOR VALUE::'
   end
 
@@ -15,6 +15,10 @@ class AbstractPage
   end
 
   def self.name
+    raise '::MUST OVERRIDE ABSTRACT PAGE CLASS FOR VALUE::'
+  end
+
+  def self.page_elements
     raise '::MUST OVERRIDE ABSTRACT PAGE CLASS FOR VALUE::'
   end
 

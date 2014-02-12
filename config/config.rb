@@ -61,6 +61,7 @@ module Configuration
     # http://bfts.rubyforge.org/minitest/MiniTest/Spec.html
     # http://mattsears.com/articles/2011/12/10/minitest-quick-reference
     require 'minitest/autorun'
+    require 'minitest/focus'
 
     ## SET global values for test suite run
 

@@ -66,9 +66,23 @@ pry -r ./lib/startup_interactive
 
 function test-lennie(){
 echo -e ""
+echo -e " \e[00;31mlennie\e[00m : testrunner"
+echo -e ""
+echo -e "\e[1;39;49mDocumentation\e[0m"
+echo -e "[\e[1;36;42mcapybara\e[0m] => http://makandracards.com/makandra/1422-capybara-the-missing-api"
+echo -e "[\e[1;36;42mminitest\e[0m] => http://mattsears.com/articles/2011/12/10/minitest-quick-reference"
+echo -e ""
+echo -e "\e[1;39;49mDebug Commands\e[0m"
+echo -e ""
+echo -e "\e[00;33mfocus\e[0m        'drop this breakpoint before any *it* block and it will only run those tests'"
+echo -e "\e[00;33mbinding.pry\e[0m  'drop this breakpoint in any context and a pry debug session will open with access to *next*, *ls*, *cd*, etc...'"
+echo -e ""
+echo -e "Test files live @ ./app/Tests/**/**.rb"
+echo -e "A single test file can be run by using the command '?'"
+echo -e ""
 rvm use 1.9.3-p0@integration-suite
 echo -e ""
-ruby -r './lib/startup_tests' app/Tests/temptests.rb
+ruby -r './lib/startup_tests' app/Tests/test_manager.rb
 }
 
 function menu-lennie(){
@@ -86,22 +100,17 @@ alias lennie-i='cd ~/code/lennie && interactive-lennie'
 ```
 
 - to run everything manually, here are some directives for quick startup
-*NOTE*: Dependency requirement/loading is aggregated in startup scripts found @ /lib
 
 **Interactive Mode**
 
-- ```cd ~/code/lennie/ && pry```
-- ```Dir["./config/config.rb", "./app/tempactions.rb"].each {|file| require file }```
-
-1. GO TO DIR FOR RVM SWITCH                         => cd ~/code/lennie/
-2. START PRY                                        => pry
-3. LOAD IN CONFIG MODULES                           => Dir["./config.rb"].each {|file| require file }
-4. LOAD TEMP ACTIONS FILE WITH APP CODE             => Dir["./tempactions.rb"].each {|file| require file }
-5. RUN TEMP ACTIONS AS NEEDED                         => TestRunner.new.<name of test>(<params>)
+1. GO TO DIR FOR RVM SWITCH                                                      => ```cd ~/code/lennie/```
+2. LOAD IN ALL CONFIGURATION AND HAND OFF TO PRY TO BEGIN                        => ```pry -r ./lib/startup_interactive```
+3. RUN ACTIONS AS NEEDED                                                         => ```TestRunner.new.<name of test>(<params>)```
 
 **Test Mode**
 
-*TODO*
+1. GO TO DIR FOR RVM SWITCH                                                      => ```cd ~/code/lennie/```
+2. LOAD IN ALL CONFIGURATION AND HAND OFF TO TEST MANAGER TO BEGIN               => ```ruby -r './lib/startup_tests' app/Tests/test_manager.rb```
 
 ## Resources
 

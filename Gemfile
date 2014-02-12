@@ -7,8 +7,9 @@ gem 'selenium-webdriver'
 # Test Data
 gem 'faker'
 
-# Test Frameworks
+# Test Frameworks and extensions
 gem 'minitest'
+gem 'minitest-focus'
 
 # Terminal design
 gem 'colorize'

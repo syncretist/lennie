@@ -1,17 +1,26 @@
 class HeaderLogInFormPageElement
 
-  ## A secondary mode of sign in from outside the HomePage/SignInPage scope; appears in headerbar
-  ## Known on pages: .., ContactPage, ..
-
   private_class_method :new
 
-  ################
-  ## ATTRIBUTES ##
-  ################
+  #################
+  ## INFORMATION ##
+  #################
 
   def self.name
     "header log in form"
   end
+
+  def self.description
+    "A secondary mode of sign in from outside the HomePage/SignInPage scope; appears in headerbar"
+  end
+
+  def self.known_pages
+    [ContactPage]
+  end
+
+  ################
+  ## ATTRIBUTES ##
+  ################
 
   def self.email_input
     find('#login-email')
