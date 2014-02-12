@@ -40,7 +40,7 @@ end
 describe "Log in" do
   describe "for Scitent Admin" do
 
-    let(:user) { User.new( :first_name => "Scitent", :last_name => "Admin", :email => SECURE_INFO[:sa_email], :password => SECURE_INFO[:sa_password] ) }
+    let(:user) { User.new( :first_name => "Scitent", :last_name => "Admin", :email => AHA_USERS['scitent-admin']['email'], :password => AHA_USERS['scitent-admin']['password'] ) }
     # another permutation of 'scitent admin' could be non seeded user with SA permissions
 
     before do

@@ -32,7 +32,7 @@ end
 describe "Admin User Management" do
   describe "for Scitent Admin" do
 
-    let(:user) { User.new( :first_name => "Scitent", :last_name => "Admin", :email => SECURE_INFO[:sa_email], :password => SECURE_INFO[:sa_password] ) }
+    let(:user) { User.new( :first_name => "Scitent", :last_name => "Admin", :email => AHA_USERS['scitent-admin']['email'], :password => AHA_USERS['scitent-admin']['password'] ) }
 
     before do
       user.visit_website( :via_homepage )

@@ -145,7 +145,7 @@ class Tester
   end
 
   def become_login(email)
-    standard_login(SECURE_INFO[:sa_email], SECURE_INFO[:sa_password])
+    standard_login(AHA_USERS['scitent-admin']['email'], AHA_USERS['scitent-admin']['password'])
     visit("#{@home_url}admin/tech_support")
     fill_in('email', :with => email)
     click_button('Find Users')
@@ -157,8 +157,8 @@ class Tester
   end
 
   def legacy_techsupport_login
-    fill_in('Email'   , :with => SECURE_INFO[:legacy_techsupport_email])
-    fill_in('Password', :with => SECURE_INFO[:legacy_techsupport_password])
+    fill_in('Email'   , :with => AHA_USERS['legacy-tech-support-user']['email'])
+    fill_in('Password', :with => AHA_USERS['legacy-tech-support-user']['password'])
     click_button('Login')
   end
 
