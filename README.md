@@ -46,7 +46,7 @@ echo -e "==== \e[1;39;49mOne offs\e[0m ===="
 echo -e "=================="
 echo -e ""
 echo -e "== \e[1;39;49mLogin as SA\e[0m =="
-echo -e "Tester.new.standard_login(SECURE_INFO[:sa_email], SECURE_INFO[:sa_password])"
+echo -e "Tester.new.standard_login(AHA_USERS['scitent-admin']['email'], AHA_USERS['scitent-admin']['password'])"
 echo -e ""
 echo -e "==============="
 echo -e "==== \e[1;39;49mTasks\e[0m ===="
@@ -79,7 +79,7 @@ echo -e "\e[00;33mfocus\e[0m        'drop this breakpoint before any *it* block 
 echo -e "\e[00;33mbinding.pry\e[0m  'drop this breakpoint in any context and a pry debug session will open with access to *next*, *ls*, *cd*, etc...'"
 echo -e ""
 echo -e "Test files live @ ./app/Tests/**/**.rb"
-echo -e "A single test file can be run by using the command '?'"
+echo -e "Single test files and/or full test categories can be run by using the menus below..."
 echo -e ""
 rvm use 1.9.3-p0@integration-suite
 echo -e ""
@@ -112,6 +112,12 @@ alias lennie-i='cd ~/code/lennie && interactive-lennie'
 
 1. GO TO DIR FOR RVM SWITCH                                                      => ```cd ~/code/lennie/```
 2. LOAD IN ALL CONFIGURATION AND HAND OFF TO TEST MANAGER TO BEGIN               => ```ruby -r './lib/startup_tests' app/Tests/test_manager.rb```
+
+## API Documentation
+
+#### Page
+- ```.go``` : *navigates browser to the selected page*
+- ```.is_current_page?``` : *lets tester know if the Page is the current browser context*
 
 ## Key Concepts
 

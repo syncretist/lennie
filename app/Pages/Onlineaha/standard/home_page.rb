@@ -11,4 +11,8 @@ class HomePage < AbstractPage
   def self.name
     'home page'
   end
+
+  def self.page_elements
+    {LogInFormPageElement.name => LogInFormPageElement}
+  end
 end

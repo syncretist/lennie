@@ -1,5 +1,5 @@
 # encoding: utf-8
-# Need to change encoding to handle '®'
+# Need to change encoding to handle '®', '✔', '✘'
 # http://stackoverflow.com/questions/1739836/invalid-multibyte-char-us-ascii-with-rails-and-ruby-1-9
 # http://stackoverflow.com/questions/3678172/ruby-1-9-invalid-multibyte-char-us-ascii
 # http://www.stefanwille.com/2010/08/ruby-on-rails-fix-for-invalid-multibyte-char-us-ascii/
@@ -93,6 +93,36 @@ module UIHelpers
 
   end
 end
+
+
+##########################################################
+##########################################################
+
+=begin
+
+==================
+==== One offs ====
+==================
+
+    == Login as SA ==
+    Tester.new.standard_login(AHA_USERS['scitent-admin']['email'], AHA_USERS['scitent-admin']['password'])
+
+===============
+==== Tasks ====
+===============
+
+    == Key count tests (with standard user login and with become) ==
+    TestRunner.new.key_count( :home_url => 'http://f.scitent.us/', :admin_email => 'okmtester2@dispostable.com', :admin_password => 'password', :org_id => 12)
+    TestRunner.new.key_count( :home_url => 'http://f.scitent.us/', :admin_email => 'pierson.shelby@mayo.edu', :org_id => 981 )
+
+    == Sco record tests ==
+    TestRunner.new.sco_record_verification( :home_url => 'http://f.scitent.us/', :admin_email => 'pierson.shelby@mayo.edu', :key_code => '0ED5A98C69A7') # BLS HCP
+    TestRunner.new.sco_record_verification( :home_url => 'http://f.scitent.us/', :admin_email => 'pierson.shelby@mayo.edu', :key_code => 'CEC80561D744') # ACLS
+
+=end
+
+##########################################################
+##########################################################
 
 class Tester
   include UIHelpers
@@ -201,7 +231,7 @@ class Tester
         legacy_counts = l[:key_counts]
         if scidea_course == legacy_course
 
-          course_title   = "Course #{scidea_course} [#{COURSES[scidea_course][:course_title]}]"
+          course_title   = "Course #{scidea_course} [#{COURSES[scidea_course] ? COURSES[scidea_course][:course_title] : '::no matching course title::'}]"
           puts course_title
           underline_size = course_title.length
           underline_size.times { print "-" }

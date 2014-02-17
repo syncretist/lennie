@@ -8,3 +8,15 @@ Dir["./lib/tempactions.rb"].each {|file| require file} #TODO eventually work thi
 include Configuration::Datedata
 include Configuration::Mockdata
 include Configuration::Browserdriver
+
+
+
+
+###########
+## Setup ##  #TODO keep adding for full use, clean it up and sync with tests
+###########
+# pulls in application configurations
+Dir["./config/config.rb"].each {|file| require file }
+# pulls in dependent classes
+Dir["./app/Elements/browser.rb", "./app/Elements/Onlineaha/user.rb", "./app/Pages/**.rb", "./app/Pages/Onlineaha/**/**.rb"].each { |file| require file }
+include Configuration::Testrunner

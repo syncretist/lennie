@@ -1,0 +1,15 @@
+#
+#
+#
+# a file to hold data for page and page element information
+#
+# SYNTAX REF: http://www.yaml.org/YAML_for_ruby.html
+
+
+# ex. name = AHA_PAGES['HomePage']['name']
+
+HomePage:
+  route: /
+  name: home page
+  page_elements:
+    - LogInFormPageElement

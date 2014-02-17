@@ -21,10 +21,8 @@ class User
     url = current_url # cache capybara result (best practice)
 
     if url.include? SESSION_BASEURL + "/"
-      if HomePage.is_current_page? || SignInPage.is_current_page?
-        fill_in('user_email', :with => email)
-        fill_in('user_password', :with => password)
-        click_button('Sign In')
+      if LogInFormPageElement.is_present?
+        LogInFormPageElement.fill_form( :email => email, :password => password)
       elsif HeaderLogInFormPageElement.is_present?
         HeaderLogInFormPageElement.fill_form( :email => email, :password => password )
       else

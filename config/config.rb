@@ -5,6 +5,8 @@ module Configuration
 
     @project_maintainer_email = 'eglassman@scitent.com'
 
+    ## Dynamically load element data
+
     if File.exist? "./app/Elements/element_configuration_manager.rb"
       require "./app/Elements/element_configuration_manager.rb"
     else
@@ -13,6 +15,10 @@ module Configuration
       puts ""
       puts "Send an email to #{@project_maintainter_email} with any questions."
     end
+
+    ## Dynamically load page relationship data
+
+    require "./app/Pages/page_configuration_manager.rb"
   end
   module Browserdriver
     require 'capybara'
