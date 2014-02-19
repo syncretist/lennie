@@ -1,5 +1,5 @@
 #####
-##### ::TITLE OF FILE CONCERN HERE::
+##### User Management
 #####
 
 ###########
@@ -18,9 +18,9 @@ Dir[""].each do |file|
   load file
 end
 
-###########
-## Tests ##
-###########
+###############
+## Test Info ##
+###############
 
 # Inventory:
 # Actions                     =>
@@ -28,6 +28,10 @@ end
 # Elements | Packages, etc... =>
 # Pages                       =>
 # Page Elements               =>
+
+###########
+## Tests ##
+###########
 
 describe "Admin User Management" do
   describe "for Scitent Admin" do

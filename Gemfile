@@ -20,3 +20,7 @@ gem 'tach'
 
 # Debugging
 gem 'pry-debugger'
+
+# Database access
+gem 'mysql2'
+gem 'net-ssh-gateway'

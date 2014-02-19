@@ -1,13 +1,21 @@
+=begin
+NOTES
+
 #TODO CREATE HELPER UTILS, like putting name of current test heirarchy, putting object_id to see if it is unique each time or same one, etc...
 #TODO abstract user creation for often used users, like a factory (ex. sa, etc... )
 
-# NOTE : Certain global suite variables are set in the config -- make sure these are set properly before running suite
-#TODO allow entry of these values pre suite run at the command line, ask and answer style
-# WEBSITE
-# etc...
+ NOTE : Certain global suite variables are set in the config -- make sure these are set properly before running suite
+  #TODO allow entry of these values pre suite run at the command line, ask and answer style
+  # WEBSITE
+ etc...
+
+Should we break up into 'tests by action, tests by feature, tests by user, tests by page... etc...?' ::TITLE OF FILE CONCERN IN #### below::
+
+=end
+
 
 #####
-##### Should we break up into 'tests by action, tests by feature, tests by user, tests by page... etc...?' ::TITLE OF FILE CONCERN HERE::
+##### Login
 #####
 
 ###########
@@ -26,9 +34,9 @@ Dir[""].each do |file|
   load file
 end
 
-###########
-## Tests ##
-###########
+###############
+## Test Info ##
+###############
 
 # Inventory:
 # Actions                     => Log in
@@ -36,6 +44,10 @@ end
 # Elements | Packages, etc... =>
 # Pages                       => home page, admin dashboard page, sign in page, contact page (any other page to log in via headerbar log in)
 # Page Elements               => headerbar login
+
+###########
+## Tests ##
+###########
 
 describe "Log in" do
   describe "for Scitent Admin" do

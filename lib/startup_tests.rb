@@ -7,4 +7,7 @@ Dir["./config/config.rb"].each {|file| require file }
 include Configuration::Datedata
 include Configuration::Mockdata
 include Configuration::Browserdriver
+include Configuration::Database
+include Configuration::Testcontext
+
 include Configuration::Testrunner

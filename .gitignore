@@ -3,4 +3,4 @@
 Gemfile.lock
 app/Elements/Onlineaha/element_configuration/*
 app/Elements/Amia/element_configuration/*
-config/secure_info.rb
+config/database.rb
