@@ -140,6 +140,10 @@ alias lennie-e='cd ~/code/lennie && edit-lennie'
 - Run in *test* mode to verify integrity or in *interactive* mode to experiment with capybara elements and context directly through pry.
 - Page Object, Page Element, Element Inventory
 
+## General Architecture
+
+![lennie-architecture-20140221180555](https://raw.github.com/syncretist/lennie/master/doc/lennie-architecture-20140221180555.gif)
+
 ## Vernacular
 
 * PAGE OBJECTS: aggregated state and behavior for each page in the application
