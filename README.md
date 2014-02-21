@@ -129,6 +129,8 @@ alias lennie-e='cd ~/code/lennie && edit-lennie'
 
 ## API Documentation
 
+#### TODO: link to docs and images @ /doc
+
 #### Page
 - ```.go``` : *navigates browser to the selected page*
 - ```.is_current_page?``` : *lets tester know if the Page is the current browser context*
