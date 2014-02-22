@@ -4,6 +4,7 @@
 # Note the files being referenced from project root, this is because this script should run in the context of the root dir in irb or pry
 Dir["./config/config.rb"].each {|file| require file }
 Dir["./app/Tests/data_testing.rb"].each {|file| require file} #TODO eventually work this into the app structure itself then remove this line and the file
+Dir["./lib/status_poster.rb"].each {|file| require file} #TODO eventually work this into the app structure itself then remove this line and the file
 
 include Configuration::Datedata
 include Configuration::Mockdata
@@ -18,6 +19,10 @@ include Configuration::Testcontext
 puts "For this session, all tests will be run in the following context:"
 
 WEBSITE_CONFIG.each { |option, value| puts "#{option}".magenta + ": #{value}"  }
+
+puts ""
+puts "Postable URIS: "
+POST_URIS.each { |option, value| puts "#{option}".magenta + ": #{value}"  }
 
 puts ""
 

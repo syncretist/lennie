@@ -12,6 +12,10 @@ if __FILE__ == $0
   WEBSITE_CONFIG.each { |option, value| puts "#{option}".magenta + ": #{value}"  }
 
   puts ""
+  puts "Postable URIS: "
+  POST_URIS.each { |option, value| puts "#{option}".magenta + ": #{value}"  }
+
+  puts ""
 
   puts "Database".magenta + ": Using #{SESSION_DATABASE[:title]}, named '#{SESSION_DATABASE[:database]}'. Access via #{SESSION_DATABASE[:host]}"
 

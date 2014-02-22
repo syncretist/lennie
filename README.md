@@ -32,7 +32,8 @@
   - [mysql2](https://github.com/brianmario/mysql2#installing)
 - ```bundle install``` *(from root of the project)*
 
-## Interactive mode and Test mode
+## Bash script startup
+*for simple access to Interactive mode and Test mode*
 
 - add the following to your `~/.bash_aliases` for quick startup menu with ```lennie``` at bash
 

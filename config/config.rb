@@ -113,6 +113,13 @@ module Configuration
       'Session Myonline URL' => SESSION_MYONLINEURL = '',
     }
 
+    ## External Services
+    ####################
+
+    POST_URIS = {
+      'the-migrator' => 'http://127.0.0.1:9292/get-data'
+    }
+
     ## Database (uncomment the desired database for use)
     ###########
 
