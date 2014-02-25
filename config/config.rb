@@ -117,7 +117,8 @@ module Configuration
     ####################
 
     POST_URIS = {
-      'the-migrator' => 'http://127.0.0.1:9292/get-data'
+      #'the-migrator' => 'http://scideainternal.scitent.com:9292/utilities/test_results'
+      'the-migrator' => 'http://127.0.0.1:9292/utilities/test_results'
     }
 
     ## Database (uncomment the desired database for use)

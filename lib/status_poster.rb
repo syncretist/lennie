@@ -1,4 +1,5 @@
 class StatusPoster
+  include UIHelpers
   require 'net/http'
   require 'uri'
 
@@ -11,7 +12,7 @@ class StatusPoster
 
   def post(recipient, message)
     # recipient should be from POST_URIS global config, ex. POST_URIS['the-migrator']
-    # message should be hash form { "q" => "YEAHA", ...}
+    # message should be hash form { "post_text" => "YEAHA", ...}
     uri = URI.parse(recipient)
     response_logger( post_form_action( uri, message ), uri )
   end
@@ -22,13 +23,16 @@ class StatusPoster
     # Net::HTTPSeeOther            (redirect after POST, but most likely success)
     # Net::HTTPNotFound            (404)
     # Net::HTTPOK                  (200, success)
+    # Errno::ECONNREFUSED: Connection refused - connect(2) (site is not started up, this is error code)
 
-    if response
-      puts "POST TO: " + uri.to_s
-      puts "POST STATUS: " + response.code_type.to_s
+  if response
+      puts "POST TO".red + ": " + uri.to_s
+      puts "POST STATUS".red + ": " + response.code_type.to_s
+      puts ""
     else
-      puts "POST TO: " + uri.to_s
-      puts "POST FAILED @ #{now}"
+      puts "POST TO".red + ": " + uri.to_s
+      puts "POST STATUS".red + ": FAILED @ #{now}"
+      puts ""
     end
   end
 end
