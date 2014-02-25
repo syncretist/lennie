@@ -1,8 +1,8 @@
 require_relative '../organization_details'
 
 OrganizationDetails.class_eval do
-  def self.cli_display_doubled_groups(result)
-    result[:doubled_groups?].each do |org_id, org_detail|
+  def self.cli_display_doubled_groups(test_name, result)
+    result.each do |org_id, org_detail|
       cli_display_doubled_groups_per_org(org_id, org_detail)
     end
   end
@@ -28,13 +28,11 @@ OrganizationDetails.class_eval do
     puts ""
   end
 
-  def self.post_display_doubled_groups(result)
+  def self.post_display_doubled_groups(test_name, result)
     p = StatusPoster.new
 
-    test_name = result.keys[0].to_s
-
-    result[:doubled_groups?].each do |org_id, org_detail|
-      p.post(POST_URIS['the-migrator'], { :organization_id => org_id, :test_name => test_name, :test_results => org_detail })
+    result.each do |org_id, org_detail|
+      p.post(POST_URIS['the-migrator'], { :organization_id => org_id, :test_name => test_name, :test_results => org_detail.to_json })
     end
   end
 end

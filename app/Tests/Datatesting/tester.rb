@@ -4,7 +4,7 @@
 # http://stackoverflow.com/questions/3678172/ruby-1-9-invalid-multibyte-char-us-ascii
 # http://www.stefanwille.com/2010/08/ruby-on-rails-fix-for-invalid-multibyte-char-us-ascii/
 
-require_relative './ui_helpers'
+require_relative '../../../lib/ui_helpers'
 
 ##########################################################
 ##########################################################

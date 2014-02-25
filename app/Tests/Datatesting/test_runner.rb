@@ -1,21 +1,23 @@
 class TestRunner
 
-  def preliminary_organization_information(*org_ids)
+  def preliminary_organization_information(views, org_ids)
+    # views => [], [:cli], [:cli, :post], etc...
+    # org_ids => [12, 13, ...]
     Tach.meter do
       tach('preliminary-organization-information') do
         ## begin test instructions header ##
         puts ""
         puts "\nYou can run these again a la carte with:\n\nOrganizationDetails.organization_information\nOrganizationDetails.admins_with_organization_access\netc..."
-        #TODO remove this header and have optional args to choose which to run, blank is all
+        #TODO replace this header and have optional args to choose which to run-- first thing is question to pick which tests to run, blank for all
         ## end test instructions header ##
-        ## begin tests ##
-        OrganizationDetails.organization_information([:cli, :post], org_ids)               # [], [:cli], [:cli, :post], etc...
-        OrganizationDetails.admins_with_organization_access([:cli, :post], org_ids)
-        OrganizationDetails.organization_key_counts([:cli, :post], org_ids)
-        #DatabaseAccess.all_org_key_users_exist?(*org_ids)
-        OrganizationDetails.duplicate_course_records?([:cli, :post], org_ids)
-        OrganizationDetails.doubled_groups?([:cli, :post], org_ids)
-        ## end tests ##
+        org_ids.each do |org|
+          #OrganizationDetails.organization_information(views, [org])
+          #OrganizationDetails.admins_with_organization_access(views, [org])
+          OrganizationDetails.organization_key_counts(views, [org])
+          #OrganizationDetails.all_org_key_users_exist?(views, [org])
+          #OrganizationDetails.duplicate_course_records?(views, [org])
+          #OrganizationDetails.doubled_groups?(views, [org])
+        end
       end
     end
     return nil #clean final return

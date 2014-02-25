@@ -13,4 +13,36 @@ class Database
     return admins
   end
 
+  def self.get_user_by_id(user_id)
+    DB_CLIENT.query("SELECT * FROM scidea_users where id=#{user_id}").each do |row|
+      row
+    end
+  end
+
+  def self.get_user_by_email(user_email)
+    DB_CLIENT.query("SELECT * FROM scidea_users where email='#{user_email}'").each do |row|
+      row
+    end
+  end
+
+  def self.get_key_sample_per_org(*org_ids)
+    #TODO allow for choices of different sample sizes based on input, 1/2, 1/4, etc...
+    organization_samples = {}
+
+    org_ids.each do |id|
+      organization_samples[id] = { :raw_samples => [], :size => '', :subset_samples => [] }
+
+      DB_CLIENT.query("SELECT scidea_keys.id, scidea_keys.activation_code, scidea_keys.learner_id, scidea_users.email, scidea_enrollments.id AS enrollment_id FROM scidea_keys LEFT JOIN scidea_users ON scidea_keys.learner_id=scidea_users.id LEFT JOIN scidea_enrollments ON scidea_keys.id=scidea_enrollments.key_id WHERE scidea_keys.consuming_organization_id=#{id}").each do |row|
+        organization_samples[id][:raw_samples] << {:key_id => row['id'], :key_code => row['activation_code'], :learner_id => row['learner_id'], :learner_email => row['email'], :enrollment_id => row['enrollment_id']}
+      end
+
+      organization_samples[id][:size] = organization_samples[id][:raw_samples].size
+      organization_samples[id][:subset_samples] = organization_samples[id][:raw_samples].sample( (organization_samples[id][:size] / 8).ceil )
+
+    end
+
+    return organization_samples
+    # { <id> => {:raw_samples => [], :size => '', :subset_samples => []} }
+  end
+
 end

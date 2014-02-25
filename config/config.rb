@@ -108,7 +108,7 @@ module Configuration
 
     WEBSITE_CONFIG = {
       'Session Protocol'     => SESSION_PROTOCOL = 'http://',                          # ['http://', 'https://']
-      'Session Base URL'     => SESSION_BASEURL  = SESSION_PROTOCOL + 'f.scitent.us',  # ['f.scitent.us', 'beta.onlineaha.org']
+      'Session Base URL'     => SESSION_BASEURL  = SESSION_PROTOCOL + 'beta.onlineaha.org',  # ['f.scitent.us', 'beta.onlineaha.org']
       'Session OKM URL'      => SESSION_OKMURL   = '',
       'Session Myonline URL' => SESSION_MYONLINEURL = '',
     }
@@ -117,6 +117,7 @@ module Configuration
     ####################
 
     POST_URIS = {
+      ## choose one ##
       #'the-migrator' => 'http://scideainternal.scitent.com:9292/utilities/test_results'
       'the-migrator' => 'http://127.0.0.1:9292/utilities/test_results'
     }
@@ -130,8 +131,9 @@ module Configuration
     # http://stackoverflow.com/questions/4103809/how-to-create-a-ssh-tunnel-in-ruby-and-then-connect-to-mysql-server-on-the-remot
     require 'net/ssh/gateway'
 
-    #SESSION_DATABASE = AHA_PRODUCTION
-    SESSION_DATABASE = AHA_CLONE
+    ## choose one ##
+    SESSION_DATABASE = AHA_PRODUCTION
+    #SESSION_DATABASE = AHA_CLONE
     #SESSION_DATABASE = AHA_STAGING
     #SESSION_DATABASE = AHA_LOCAL
     #SESSION_DATABASE = etc...

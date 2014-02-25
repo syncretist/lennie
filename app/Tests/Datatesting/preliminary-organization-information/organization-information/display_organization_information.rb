@@ -1,8 +1,8 @@
 require_relative '../organization_details'
 
 OrganizationDetails.class_eval do
-  def self.cli_display_organization_information(result)
-    result[:organization_information].each do |org_id, org_detail|
+  def self.cli_display_organization_information(test_name, result)
+    result.each do |org_id, org_detail|
       cli_display_organization_information_per_org(org_detail)
     end
   end
@@ -23,13 +23,11 @@ OrganizationDetails.class_eval do
     puts ""
   end
 
-  def self.post_display_organization_information(result)
+  def self.post_display_organization_information(test_name, result)
     p = StatusPoster.new
 
-    test_name = result.keys[0].to_s
-
-    result[:organization_information].each do |org_id, org_detail|
-      p.post(POST_URIS['the-migrator'], { :organization_id => org_id, :test_name => test_name, :test_results => org_detail })
+    result.each do |org_id, org_detail|
+      p.post(POST_URIS['the-migrator'], { :organization_id => org_id, :test_name => test_name, :test_results => org_detail.to_json })
     end
   end
 end
