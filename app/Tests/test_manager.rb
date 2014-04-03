@@ -3,29 +3,6 @@
 if __FILE__ == $0
   $LOAD_PATH.unshift('Tests')
 
-  ############################################################
-  ## Display test context set in Configuration::Testcontext ##
-  ############################################################
-
-  puts "For this session, all tests will be run in the following context:"
-
-  WEBSITE_CONFIG.each { |option, value| puts "#{option}".magenta + ": #{value}"  }
-
-  puts ""
-  puts "Postable URIS: "
-  POST_URIS.each { |option, value| puts "#{option}".magenta + ": #{value}"  }
-
-  puts ""
-
-  puts "Database".magenta + ": Using #{SESSION_DATABASE[:title]}, named '#{SESSION_DATABASE[:database]}'. Access via #{SESSION_DATABASE[:host]}"
-
-  puts ""
-
-  puts "NOTE:".yellow + " to make changes to this context, see" + " Configuration::Testcontext".bold + " @ ./config/config.rb "
-  puts ""
-
-  #TODO add anything else that seems relevant
-
   ######################################################
   ## Choose test categories and specific tests to run ##
   ######################################################

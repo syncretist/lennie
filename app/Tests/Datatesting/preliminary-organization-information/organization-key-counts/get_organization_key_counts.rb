@@ -17,7 +17,7 @@ OrganizationDetails.class_eval do
 
   def self.prepare_organization_key_counts(org_id)
     t           = Tester.new(SESSION_BASEURL + "/")
-    admin_email = Database.get_admin_emails_with_access_to_organization(org_id).first # handle case of this being empty
+    admin_email = Database.get_admin_emails_with_access_to_organization(org_id).last # handle case of this being empty
 
     t.visit_home_url
     t.login_type_selector( { :admin_email => admin_email } )
@@ -50,6 +50,7 @@ OrganizationDetails.class_eval do
       scidea_course_id = scidea_course[:course_id]
       scidea_counts    = scidea_course[:key_counts]
 
+      #TODO fix cases where there are different numbers of courses, and legacy blows up here
       legacy_course_id = counts[:legacy_count][i][:course_id]
       legacy_counts    = counts[:legacy_count][i][:key_counts]
 

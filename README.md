@@ -66,7 +66,7 @@ echo -e "TestRunner.new.sco_record_verification( :home_url => 'http://f.scitent.
 echo -e ""
 rvm use 1.9.3-p0@integration-suite
 echo -e ""
-pry -r ./lib/startup_interactive
+pry -r ./lib/startup
 }
 
 function test-lennie(){
@@ -88,7 +88,7 @@ echo -e "Single test files and/or full test categories can be run by using the m
 echo -e ""
 rvm use 1.9.3-p0@integration-suite
 echo -e ""
-ruby -r './lib/startup_tests' app/Tests/test_manager.rb
+ruby -r './lib/startup' app/Tests/test_manager.rb
 }
 
 function edit-lennie(){

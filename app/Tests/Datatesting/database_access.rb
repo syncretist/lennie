@@ -14,26 +14,6 @@ class DatabaseAccess
 
   end
 
-
-
-  def sco_record_verification( params = {} )
-    Tach.meter do
-      tach('sco_record_verification') do
-        # can be PER USER or array of users (by email, key)
-        t = Tester.new(params[:home_url])
-        t.visit_home_url
-        t.login_type_selector(params)
-        t.prepare_to_gather_status_scidea(params[:key_code])
-        # [opt] status from user UI
-        # [opt] status from OKM key state
-        t.logout
-        t.prepare_to_gather_status_legacy(params[:key_code])
-        t.compare_sco_records_selector(params)
-      end
-    end
-    return nil #clean final return
-  end
-
   def self.org_scorecord_tests(mode, *org_ids)
     if mode == :run
       run_org_scorecord_tests(*org_ids)
@@ -47,21 +27,27 @@ class DatabaseAccess
 
     if mode == :verbose
       org_ids.each do |id|
-        samples = get_key_sample_per_org(id)
+        samples = DatabaseQuery.get_key_sample_per_org_with_test_string(id)
+        collected_tests = []
 
         puts ""
         puts "Sco Record Test Sample for ORG #{id} ↴"
         puts "┉┉┉┉┉┉┉┉┉┉┉┉┉┉┉┉┉┉┉┉┉┉┉┉┉┉┉┉┉┉┉┉"
         puts ""
         samples[id][:subset_samples].each do |sample|
+          collected_tests << ["Test for key:#{sample[:key_code]}, used by #{sample[:learner_email]} [#{sample[:learner_id]}] as enrollment #{sample[:enrollment_id]}", sample[:test_string]]
           puts "Test for key:#{sample[:key_code]}, used by #{sample[:learner_email]} [#{sample[:learner_id]}] as enrollment #{sample[:enrollment_id]}".bold
           puts sample[:test_string]
         end
         puts ""
+
+        # temporary placement, should be broken out seperately
+        p = StatusPoster.new
+        p.post(POST_URIS['the-migrator'], { :organization_id => id, :test_name => 'sco_sample_investigation', :test_results => collected_tests.to_json })
       end
     else
       org_ids.each do |id|
-        samples = get_key_sample_per_org(id)
+        samples = DatabaseQuery.get_key_sample_per_org_with_test_string(id)
 
         puts ""
         puts "Sco Record Test Sample for ORG #{id} ↴"
@@ -78,7 +64,7 @@ class DatabaseAccess
 
   def self.run_org_scorecord_tests(*org_ids)
     org_ids.each do |id|
-      samples = get_key_sample_per_org(id)
+      samples = DatabaseQuery.get_key_sample_per_org_with_test_string(id)
 
       puts ""
       puts "Running Sco Records Tests for Sample at ORG #{id} ↴"
